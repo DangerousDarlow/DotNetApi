@@ -1,0 +1,6 @@
+﻿services:
+  dotnetapi:
+    image: dotnetapi
+    build:
+      context: .
+      dockerfile: DotNetApi/Dockerfile
