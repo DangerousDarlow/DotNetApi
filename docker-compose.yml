@@ -7,7 +7,7 @@
     ports:
       - 8080:8080
     environment:
-      DatabaseConnection_Host: postgres
+      DatabaseConnection__Host: postgres
     depends_on:
       - postgres
       - flyway

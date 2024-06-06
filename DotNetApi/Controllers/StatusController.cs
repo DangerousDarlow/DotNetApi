@@ -1,11 +1,17 @@
-﻿using DotNetApi.Model.Status;
+﻿using DotNetApi.Model;
+using DotNetApi.Model.Status;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Npgsql;
 
 namespace DotNetApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class StatusController(StatusRepository repository) : ControllerBase
+public class StatusController(
+    StatusRepository repository,
+    IOptions<DatabaseConnectionConfiguration> configurationOption,
+    ILogger<StatusController> logger) : ControllerBase
 {
     [HttpGet]
     public void GetStatus() => Response.StatusCode = 200;
@@ -13,10 +19,25 @@ public class StatusController(StatusRepository repository) : ControllerBase
     [HttpGet("database")]
     public async Task<DatabaseStatusResponse?> GetDatabaseStatus()
     {
-        Response.StatusCode = 200;
-        var applicationTime = DateTime.UtcNow;
-        var databaseTime = await repository.GetNow();
-        var difference = databaseTime - applicationTime;
-        return new DatabaseStatusResponse(applicationTime, databaseTime, difference);
+        try
+        {
+            Response.StatusCode = 200;
+            var applicationTime = DateTime.UtcNow;
+            var databaseTime = await repository.GetNow();
+            var difference = databaseTime - applicationTime;
+            return new DatabaseStatusResponse(applicationTime, databaseTime, difference);
+        }
+        catch (NpgsqlException e)
+        {
+            var configuration = configurationOption.Value;
+            if (configuration is null)
+                throw new NullReferenceException("Null database connection configuration", e);
+
+            logger.LogError(
+                "Failed to obtain database status: Host {DatabaseHost}, Port {DatabasePort}, Username {DatabaseUsername}, Database {DatabaseName}, Error {ErrorMessage}",
+                configuration.Host, configuration.Port, configuration.Username, configuration.Database, e.Message);
+
+            throw;
+        }
     }
 }
