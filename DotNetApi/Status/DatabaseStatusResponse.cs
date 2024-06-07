@@ -1,4 +1,4 @@
-﻿namespace DotNetApi.Model.Status;
+﻿namespace DotNetApi.Status;
 
 public record DatabaseStatusResponse(
     DateTime applicationTime,

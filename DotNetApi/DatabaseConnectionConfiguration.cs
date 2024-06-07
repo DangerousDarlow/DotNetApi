@@ -1,4 +1,4 @@
-﻿namespace DotNetApi.Model;
+﻿namespace DotNetApi;
 
 public class DatabaseConnectionConfiguration
 {

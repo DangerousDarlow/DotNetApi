@@ -1,10 +1,8 @@
-﻿using DotNetApi.Model;
-using DotNetApi.Model.Status;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Npgsql;
 
-namespace DotNetApi.Controllers;
+namespace DotNetApi.Status;
 
 [ApiController]
 [Route("[controller]")]

@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using Dapper;
 
-namespace DotNetApi.Model.Status;
+namespace DotNetApi.Status;
 
 public class StatusRepository(IDbConnection dbConnection)
 {

@@ -1,6 +1,6 @@
 using System.Data;
-using DotNetApi.Model;
-using DotNetApi.Model.Status;
+using DotNetApi;
+using DotNetApi.Status;
 using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
