@@ -1,6 +1,7 @@
 using System.Data;
 using DotNetApi;
 using DotNetApi.Status;
+using DotNetApi.User;
 using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<StatusRepository>();
+builder.Services.AddSingleton<UserRepository>();
+
+UserIdDapperTypeHandler.AddToDapper();
 
 builder.Services.AddSingleton<IDbConnection>(serviceProvider =>
 {
