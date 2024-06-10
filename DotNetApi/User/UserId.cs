@@ -18,7 +18,7 @@ public static class UserIdExtensions
 
 public class UserIdDapperTypeHandler : SqlMapper.ITypeHandler
 {
-    public void SetValue(IDbDataParameter parameter, object value) => parameter.Value = value.ToString();
+    public void SetValue(IDbDataParameter parameter, object value) => parameter.Value = value;
 
     public object? Parse(Type destinationType, object value)
     {
