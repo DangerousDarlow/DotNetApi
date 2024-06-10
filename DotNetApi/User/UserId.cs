@@ -6,7 +6,15 @@ using Dapper;
 namespace DotNetApi.User;
 
 [JsonConverter(typeof(UserIdJsonConverter))]
-public record UserId(Guid Value);
+public readonly record struct UserId(Guid Value)
+{
+    public static implicit operator Guid(UserId userId) => userId.Value;
+}
+
+public static class UserIdExtensions
+{
+    public static UserId ToUserId(this Guid guid) => new(guid);
+}
 
 public class UserIdDapperTypeHandler : SqlMapper.ITypeHandler
 {
