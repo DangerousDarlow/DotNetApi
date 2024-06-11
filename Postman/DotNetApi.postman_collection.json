@@ -1,0 +1,106 @@
+{
+	"info": {
+		"_postman_id": "005b2919-3a76-4681-890d-0facdf00c371",
+		"name": "DotNetApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4569641"
+	},
+	"item": [
+		{
+			"name": "Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Host}}/status",
+					"host": [
+						"{{Host}}"
+					],
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Database Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Host}}/status/database",
+					"host": [
+						"{{Host}}"
+					],
+					"path": [
+						"status",
+						"database"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Host}}/user",
+					"host": [
+						"{{Host}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"5d9f79aa-da7e-4c87-a7b1-29c4d09b47b6\",\r\n    \"name\": \"Emma\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Host}}/user",
+					"host": [
+						"{{Host}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{Host}}/user/5d9f79aa-da7e-4c87-a7b1-29c4d09b47b6",
+					"host": [
+						"{{Host}}"
+					],
+					"path": [
+						"user",
+						"5d9f79aa-da7e-4c87-a7b1-29c4d09b47b6"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
