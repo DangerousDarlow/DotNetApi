@@ -2,14 +2,14 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Dapper;
-using Npgsql;
-using NpgsqlTypes;
 
 namespace DotNetApi.User;
 
 [JsonConverter(typeof(UserIdJsonConverter))]
 public readonly record struct UserId(Guid Value)
 {
+    static UserId() => UserIdDapperTypeHandler.AddToDapper();
+
     public static implicit operator Guid(UserId userId) => userId.Value;
 }
 
@@ -20,12 +20,7 @@ public static class UserIdExtensions
 
 public class UserIdDapperTypeHandler : SqlMapper.ITypeHandler
 {
-    public void SetValue(IDbDataParameter parameter, object value)
-    {
-        parameter.Value = ((UserId) value).Value;
-        if (parameter is NpgsqlParameter npgsqlParameter)
-            npgsqlParameter.NpgsqlDbType = NpgsqlDbType.Uuid;
-    }
+    public void SetValue(IDbDataParameter parameter, object value) => parameter.Value = ((UserId) value).Value;
 
     public object Parse(Type destinationType, object value) => new UserId((Guid) value);
 

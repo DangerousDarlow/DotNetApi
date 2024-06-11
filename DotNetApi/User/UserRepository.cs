@@ -7,8 +7,7 @@ public class UserRepository(IDbConnection dbConnection)
 {
     public Task<IEnumerable<User>> GetUsers() => dbConnection.QueryAsync<User>("SELECT id, name FROM users");
 
-    public Task<int> AddUser(User user) =>
-        dbConnection.ExecuteAsync("INSERT INTO users (id, name) VALUES (@id, @name)", new { id = user.Id, name = user.Name });
+    public Task<int> AddUser(User user) => dbConnection.ExecuteAsync("INSERT INTO users (id, name) VALUES (@id, @name)", user);
 
     public Task<int> DeleteUser(UserId id) => dbConnection.ExecuteAsync("DELETE FROM users WHERE id = @id", new { id });
 }
