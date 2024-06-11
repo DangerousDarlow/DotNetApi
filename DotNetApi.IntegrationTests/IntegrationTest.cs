@@ -4,7 +4,7 @@ public abstract class IntegrationTest
 {
     protected HttpClient Client { get; private set; }
 
-    protected Uri TargetUrl { get; } = new(TestContext.Parameters.Get("TargetUrl", "http://localhost:8080"));
+    private Uri TargetUrl { get; } = new(TestContext.Parameters.Get("TargetUrl", "http://localhost:8080"));
 
     [OneTimeSetUp]
     public void CreateClient()
