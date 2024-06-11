@@ -2,6 +2,8 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Dapper;
+using Npgsql;
+using NpgsqlTypes;
 
 namespace DotNetApi.User;
 
@@ -18,13 +20,14 @@ public static class UserIdExtensions
 
 public class UserIdDapperTypeHandler : SqlMapper.ITypeHandler
 {
-    public void SetValue(IDbDataParameter parameter, object value) => parameter.Value = value;
-
-    public object? Parse(Type destinationType, object value)
+    public void SetValue(IDbDataParameter parameter, object value)
     {
-        var str = value.ToString();
-        return string.IsNullOrEmpty(str) ? null : new UserId(Guid.Parse(str));
+        parameter.Value = ((UserId) value).Value;
+        if (parameter is NpgsqlParameter npgsqlParameter)
+            npgsqlParameter.NpgsqlDbType = NpgsqlDbType.Uuid;
     }
+
+    public object Parse(Type destinationType, object value) => new UserId((Guid) value);
 
     public static void AddToDapper() => SqlMapper.AddTypeHandler(typeof(UserId), new UserIdDapperTypeHandler());
 }
