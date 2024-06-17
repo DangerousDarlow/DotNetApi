@@ -4,3 +4,16 @@ GET {{DotNetApi_HostAddress}}/user/
 Accept: application/json
 
 ###
+
+POST {{DotNetApi_HostAddress}}/user/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": "5d9f79aa-da7e-4c87-a7b1-29c4d09b47b6",
+  "name": "Emma"
+}
+
+###
+
+DELETE {{DotNetApi_HostAddress}}/user/5d9f79aa-da7e-4c87-a7b1-29c4d09b47b6
