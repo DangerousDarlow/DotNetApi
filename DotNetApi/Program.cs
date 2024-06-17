@@ -21,6 +21,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<StatusRepository>();
 builder.Services.AddSingleton<UserRepository>();
 
+UserIdDapperTypeHandler.AddToDapper();
+
 builder.Services.AddSingleton<IDbConnection>(serviceProvider =>
 {
     var configuration = serviceProvider.GetRequiredService<IConfiguration>();

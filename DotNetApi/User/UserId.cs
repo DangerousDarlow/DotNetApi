@@ -8,8 +8,6 @@ namespace DotNetApi.User;
 [JsonConverter(typeof(UserIdJsonConverter))]
 public readonly record struct UserId(Guid Value)
 {
-    static UserId() => UserIdDapperTypeHandler.AddToDapper();
-
     public static implicit operator Guid(UserId userId) => userId.Value;
 }
 
