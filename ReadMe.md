@@ -26,3 +26,9 @@ Run tests passing the TargetUrl parameter
 cd DotNetApi.IntegrationTests
 dotnet test --no-build --% -- TestRunParameters.Parameter(name=\"TargetUrl\", value=\"http://localhost:5000\")
 ```
+
+# View swagger API documentation
+
+Start the service with environment variable `DOTNET_ENVIRONMENT=Development`.
+
+Navigate your browser to `https://<your-host>/swagger/index.html` or locally [http://localhost:5000/swagger/index.html](http://localhost:5000/swagger/index.html).

@@ -18,7 +18,7 @@ public class UserTests : IntegrationTest
         Assert.That(getResponse.IsSuccessStatusCode, Is.True);
 
         var getResponseContent = await getResponse.Content.ReadAsStringAsync();
-        var users = JsonSerializer.Deserialize<IEnumerable<User.User>>(getResponseContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        var users = JsonSerializer.Deserialize<IEnumerable<User.User>>(getResponseContent, JsonSerializerOptions.Web);
 
         var newUser = users?.First(x => x.Id == userId);
         Assert.That(newUser, Is.Not.Null);
@@ -31,7 +31,7 @@ public class UserTests : IntegrationTest
         Assert.That(getResponse.IsSuccessStatusCode, Is.True);
 
         getResponseContent = await getResponse.Content.ReadAsStringAsync();
-        users = JsonSerializer.Deserialize<IEnumerable<User.User>>(getResponseContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        users = JsonSerializer.Deserialize<IEnumerable<User.User>>(getResponseContent, JsonSerializerOptions.Web);
         Assert.That(users?.Any(x => x.Id == userId), Is.False);
     }
 
