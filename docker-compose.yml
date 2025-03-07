@@ -1,6 +1,7 @@
 ﻿services:
   dotnetapi:
     image: dotnetapi
+    container_name: dotnetapi
     build:
       context: .
       dockerfile: DotNetApi/Dockerfile
@@ -14,6 +15,7 @@
   
   postgres:
     image: postgres
+    container_name: postgres
     ports:
       - 5432:5432
     environment:
@@ -22,8 +24,17 @@
         
   flyway:
     image: flyway/flyway
+    container_name: flyway
     command: -url=jdbc:postgresql://postgres:5432/dotnetapi -user=postgres -password=postgres -connectRetries=5 migrate
     volumes:
       - ./Sql:/flyway/sql
     depends_on:
       - postgres
+
+  toxiproxy:
+    image: ghcr.io/shopify/toxiproxy
+    container_name: toxiproxy
+    ports:
+      - "8474:8474"
+      - "8666:8666"
+  
