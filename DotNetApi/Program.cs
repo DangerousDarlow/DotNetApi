@@ -1,5 +1,6 @@
 using System.Data;
 using DotNetApi;
+using DotNetApi.Middleware;
 using DotNetApi.Status;
 using DotNetApi.User;
 using Npgsql;
@@ -44,6 +45,7 @@ builder.Services.AddSingleton<IDbConnection>(serviceProvider =>
 });
 
 var app = builder.Build();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {

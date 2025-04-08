@@ -14,16 +14,15 @@ public class StatusController(
     [HttpGet]
     public void GetStatus() => Response.StatusCode = 200;
 
-    [HttpGet("database")]
-    public async Task<DatabaseStatusResponse?> GetDatabaseStatus()
+    [HttpGet("Database")]
+    public async Task<ActionResult<DatabaseStatusResponse>> GetDatabaseStatus()
     {
         try
         {
-            Response.StatusCode = 200;
             var applicationTime = DateTime.UtcNow;
             var databaseTime = await repository.GetNow();
             var difference = databaseTime - applicationTime;
-            return new DatabaseStatusResponse(applicationTime, databaseTime, difference);
+            return Ok(new DatabaseStatusResponse(applicationTime, databaseTime, difference));
         }
         catch (NpgsqlException e)
         {
@@ -32,7 +31,7 @@ public class StatusController(
                 throw new NullReferenceException("Null database connection configuration", e);
 
             logger.LogError(
-                "Failed to obtain database status: Host {DatabaseHost}, Port {DatabasePort}, Username {DatabaseUsername}, Database {DatabaseName}, Error {ErrorMessage}",
+                "Failed to obtain database status: Host {DatabaseHost}, Port {DatabasePort}, Username {DatabaseUsername}, Database {DatabaseName}, Error '{ErrorMessage}'",
                 configuration.Host, configuration.Port, configuration.Username, configuration.Database, e.Message);
 
             throw;

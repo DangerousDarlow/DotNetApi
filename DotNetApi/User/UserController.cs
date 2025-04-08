@@ -7,7 +7,7 @@ namespace DotNetApi.User;
 public class UserController(UserRepository repository) : ControllerBase
 {
     [HttpGet]
-    public async Task<IEnumerable<User>> GetUsers() => await repository.GetUsers();
+    public async Task<ActionResult<IEnumerable<User>>> GetUsers() => Ok(await repository.GetUsers());
 
     [HttpPost]
     public async Task<IActionResult> AddUser(User user)
@@ -24,5 +24,5 @@ public class UserController(UserRepository repository) : ControllerBase
     }
 
     [HttpDelete("{id:guid}")]
-    public async Task DeleteUser(Guid id) => await repository.DeleteUser(id.ToUserId());
+    public async Task<IActionResult> DeleteUser(Guid id) => Ok(await repository.DeleteUser(id.ToUserId()));
 }
