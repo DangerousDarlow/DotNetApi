@@ -15,7 +15,7 @@ public class UserController(UserRepository repository) : ControllerBase
         try
         {
             await repository.AddUser(user);
-            return Ok();
+            return NoContent();
         }
         catch (ConflictException)
         {

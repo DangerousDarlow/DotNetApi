@@ -12,7 +12,7 @@ public class StatusController(
     ILogger<StatusController> logger) : ControllerBase
 {
     [HttpGet]
-    public void GetStatus() => Response.StatusCode = 200;
+    public void GetStatus() => NoContent();
 
     [HttpGet("Database")]
     public async Task<ActionResult<DatabaseStatusResponse>> GetDatabaseStatus()

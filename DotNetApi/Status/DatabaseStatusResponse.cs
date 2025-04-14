@@ -1,7 +1,7 @@
 ﻿namespace DotNetApi.Status;
 
 public record DatabaseStatusResponse(
-    DateTime applicationTime,
-    DateTime databaseTime,
-    TimeSpan difference
+    DateTime ApplicationTime,
+    DateTime DatabaseTime,
+    TimeSpan Difference
 );
