@@ -10,7 +10,7 @@ public abstract class IntegrationTest
     public void CreateClient()
     {
         Client = new HttpClient { BaseAddress = TargetUrl };
-        TestContext.WriteLine($"Created HttpClient with base Url {TargetUrl}");
+        TestContext.Out.WriteLine($"Created HttpClient with base Url {TargetUrl}");
     }
 
     [OneTimeTearDown]
